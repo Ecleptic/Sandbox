@@ -1,0 +1,90 @@
+<form>
+	<fieldset>
+		<table>
+			<tbody>
+				<tr>
+					<th>Friendly Name:</th>
+					<td>
+						<input type="text" name="name" [(ngModel)]="frame.name" />
+					</td>
+				</tr>
+
+				<tr>
+					<th>Select Container:</th>
+					<td>
+						<select name="container" [(ngModel)]="container">
+							<option value=""></option>
+							<option *ngFor="let container of containers" [ngValue]="container">{{ container.name }}</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<th>Menu Overlay:</th>
+					<td>
+						<select name="menuOverlay" [(ngModel)]="frame.menu">
+							<option value=""></option>
+							<option *ngFor="let menu of menus" [ngValue]="menu">{{ menu.name }}</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<th>Content Timeout:</th>
+					<td>
+						<input type="number" name="contentTimeout" [(ngModel)]="frame.contentTimeout" />
+					</td>
+				</tr>
+
+				<tr>
+					<th>Exit to Frame:</th>
+					<td>
+						<select name="exitToFrame" [(ngModel)]="frame.exitToFrame">
+							<option value=""></option>
+							<option *ngFor="let frame of container.frames" [ngValue]="frame">{{ frame.name }}</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td>Asset Label</td>
+					<td>{{ frame.asset.name }}</td>
+				</tr>
+				<tr>
+					<td>Physical Name</td>
+					<td>{{ frame.asset.physicalName }}</td>
+				</tr>
+				<tr>
+					<td>Width</td>
+					<td>{{ frame.asset.width }}</td>
+				</tr>
+				<tr>
+					<td>Height</td>
+					<td>{{ frame.asset.height }}</td>
+				</tr>
+
+				<ng-template #noAsset>
+					<th for="">Select Asset</th>
+					<td>
+						<select name="" id="">
+							<option value=""></option>
+							<option *ngFor="let asset of assets" ngValue="asset">{{ asset.name }}</option>
+							<!--! TODO: get assets here -->
+						</select>
+					</td>
+				</ng-template>
+			</tbody>
+		</table>
+	</fieldset>
+	<fieldset>
+		<button type="button" (click)="deleteFrame($event)"><i class="fa fa-trash"></i> Delete Frame</button>
+	</fieldset>
+	<fieldset *ngIf="frame.menu">
+		<ul>
+			<li *ngFor="let touchpoint of frame.menu.touchPoints">Touchpoint: {{ touchpoint.id }}</li>
+		</ul>
+	</fieldset>
+	<fieldset>
+		<button type="button" (click)="addTouchpoint()"><i class="fa fa-plus-square"></i> Add Touchpoint</button>
+	</fieldset>
+</form>
